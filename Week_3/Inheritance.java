@@ -20,7 +20,10 @@ public class Inheritance {
         System.out.println(ali.getKilo());
         muhendis deli= new muhendis(15000,180,90);
         System.out.println(deli.maas); 
-        
+
+        Bisiklet b1=new Bisiklet();
+        b1.bin();
+
 
     }
 
