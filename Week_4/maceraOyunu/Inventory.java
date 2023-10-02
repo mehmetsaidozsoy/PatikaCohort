@@ -1,8 +1,18 @@
 public class Inventory {
     private Weapon weapon;
     private Armor armor;
+    private Award award;
     
    
+    public Award getAward() {
+        return award;
+    }
+    public void setAward(Award award) {
+        this.award = award;
+    }
+    public Inventory(Award award) {
+        this.award = award;
+    }
     public Inventory(){
         this.weapon=new Weapon("Yumruk", -1, 0, 0);
         this.armor=new Armor(-1,"Paçavra",0,0);

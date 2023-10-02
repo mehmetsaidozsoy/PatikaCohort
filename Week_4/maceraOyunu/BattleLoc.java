@@ -2,10 +2,19 @@ import java.util.Random;
 
 public abstract class BattleLoc extends Location{
     private Obstacle obstacle;
-    private String award;
+    private Award award;
     private int maxObstacle;
-
+    private static boolean EnemyStatus;
+    
    
+
+    public static boolean isEnemyStatus() {
+        return EnemyStatus;
+    }
+
+    public void setEnemyStatus(boolean EnemyStatus) {
+        BattleLoc.EnemyStatus = EnemyStatus;
+    }    
 
     public int getMaxObstacle() {
         return maxObstacle;
@@ -15,11 +24,11 @@ public abstract class BattleLoc extends Location{
         this.maxObstacle = maxObstacle;
     }
 
-    public BattleLoc(Player player, String name, Obstacle obstacle, String award,int maxObstacle) {
+    public BattleLoc(Player player, String name, Obstacle obstacle, Award award,int maxObstacle,boolean EnemyStatus) {
         super(player, name);
         this.obstacle=obstacle;
         this.award=award;       
-        this.maxObstacle=maxObstacle;
+        this.maxObstacle=maxObstacle;       
         
     }
 
@@ -32,7 +41,11 @@ public abstract class BattleLoc extends Location{
         String selectCase=input.nextLine();
         selectCase=selectCase.toUpperCase();
         if(selectCase.equals("S")&&combat(obsNumber)){
-            System.out.println(this.getName()+" tüm düşmanları yendiniz !");
+            System.out.println(this.getName()+" daki tüm düşmanları yendiniz !");
+            this.setAward(this.getAward());
+            this.getPlayer().getInventory().setAward(this.getAward());
+            System.out.println(this.getAward().getName()+" ödülü aldınız !");
+            this.setEnemyStatus(false);
                 return true;
             }
 
@@ -40,15 +53,11 @@ public abstract class BattleLoc extends Location{
             System.out.println("Öldünüz !");
             return false;
         }
-    
-
-        
 
         return true;
     }
 
     public boolean combat(int obsNumber){
-
         for (int i = 1; i <= obsNumber; i++) {
             this.getObstacle().setHealth(this.getObstacle().getOrjinalHealth());
             playerStats();
@@ -66,7 +75,6 @@ public abstract class BattleLoc extends Location{
                         if (obstacleDamage<0){obstacleDamage=0;}
                         this.getPlayer().setHealth(this.getPlayer().getHealth()-obstacleDamage);
                         afterHit();
-
                     }
 
                 }else{
@@ -100,6 +108,7 @@ public abstract class BattleLoc extends Location{
         System.out.println("Silah : "+this.getPlayer().getWeapon().getName());
         System.out.println("Zırh : "+this.getPlayer().getInventory().getArmor().getName());
         System.out.println("Bloklama : "+this.getPlayer().getInventory().getArmor().getBlock());
+        System.out.println("Ödül : "+this.getPlayer().getInventory().getAward().getName());
         System.out.println("Para : "+this.getPlayer().getMoney());
         System.out.println();
         
@@ -109,8 +118,7 @@ public abstract class BattleLoc extends Location{
         System.out.println("--------------------------");
         System.out.println("Sağlık : "+this.getObstacle().getHealth());
         System.out.println("Hasar : "+this.getObstacle().getDamage());
-        System.out.println("Ödül : "+this.getObstacle().getAward());
-       
+        System.out.println("Ödül : "+this.getObstacle().getAward());       
         
     }
 
@@ -126,18 +134,14 @@ public abstract class BattleLoc extends Location{
 
     public void setObstacle(Obstacle obstacle) {
         this.obstacle = obstacle;
-    }
+    }    
 
-    
-
-    public String getAward() {
+    public Award getAward() {
         return award;
     }
 
-    public void setAward(String award) {
+    public void setAward(Award award) {
         this.award = award;
-    }
-
-    
+    }    
     
 }

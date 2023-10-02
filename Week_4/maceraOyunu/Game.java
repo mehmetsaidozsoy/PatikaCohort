@@ -30,21 +30,39 @@ public class Game {
                     case 0:
                         location=null;
                         break;
-                    case 1:
-                        location=new SafeHouse(player);
-                        break;
-                    case 2:
-                        location=new ToolStore(player);
-                        break;
+                    case 1:                        
+                            location=new SafeHouse(player);
+                            break;      
+                    case 2:                        
+                            location=new ToolStore(player);
+                            break;
                     case 3:
-                        location=new Cave(player);
-                        break;
+                    if(Cave.isEnemyStatus()){
+                            location=new Cave(player);
+                            break;
+                        }else{
+                            System.out.println("Tüm düşmanları öldürüp ödülü aldığınızdan Mağaraya tekrar giriş yapamazsınız !");
+                            continue;                            
+                        }
                     case 4:
-                        location=new Forest(player);
-                        break;
+                    if(Forest.isEnemyStatus()){
+                            location=new Forest(player);
+                            break;
+                        }else{
+                            System.out.println("Tüm düşmanları öldürüp ödülü aldığı nızdan Ormana tekrar giriş yapamazsınız !");
+                            System.out.println(Forest.isEnemyStatus());
+                            continue;
+                        }
+                    
                     case 5:
-                        location=new River(player);
-                        break;
+                    if(River.isEnemyStatus()){
+                            location=new River(player);
+                            break;
+                        }else{
+                            System.out.println("Tüm düşmanları öldürüp ödülü aldığınızdan Nehre tekrar giriş yapamazsınız !");
+                            continue;                            
+                        }
+                        
                     default:
                     System.out.println("Lütfen geçerli bir bölge giriniz !");
                         location=new SafeHouse(player);
@@ -53,8 +71,7 @@ public class Game {
                 if(location==null){
                     System.out.println("Oyun bitti yine bekleriz.");
                     break;
-                }
-                
+                }                
                 if(!location.onLocation()){
                     System.out.println("Game Over!");
                     break;

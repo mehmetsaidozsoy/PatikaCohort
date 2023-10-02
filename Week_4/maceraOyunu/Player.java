@@ -4,6 +4,11 @@ public class Player {
      private int damage;
      private int health;
      private int originalHealth;
+     private int money;
+     private String charName;
+     private String name;
+     private Inventory inventory;
+
      public int getOriginalHealth() {
         return originalHealth;
     }
@@ -16,11 +21,9 @@ public class Player {
         this.originalHealth = originalHealth;
     }
 
-    private int money;
-     private String charName;
-     private String name;
+     
      private Scanner input= new Scanner(System.in);
-     private Inventory inventory;
+     
     
      public String getName() {
         return name;
